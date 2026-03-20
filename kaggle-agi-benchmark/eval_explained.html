@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { background-color: #1e1e1e; color: #00ff00; font-family: 'Courier New', monospace; padding: 20px; font-size: 16px; margin: 0; padding-right: 320px; }
+  pre { margin: 0; white-space: pre-wrap; line-height: 1.5; }
+  .cursor { display: inline-block; width: 10px; height: 16px; background-color: #00ff00; animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  
+  #explanation-box {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 280px;
+    background-color: #2d2d2d;
+    color: #fff;
+    padding: 20px;
+    border: 2px solid #00ff00;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,255,0,0.2);
+  }
+  .explanation-title { font-weight: bold; color: #0df; margin-bottom: 10px; font-size: 18px; text-transform: uppercase; }
+  #explanation-text { font-size: 15px; line-height: 1.4; color: #ccc; }
+</style>
+</head>
+<body>
+<div id="explanation-box">
+  <div class="explanation-title">Phase 1: Initialization</div>
+  <div id="explanation-text">Booting up the metacognition evaluation harness...</div>
+</div>
+<pre id="terminal"></pre>
+<script>
+const text = ">>> STARTING KAGGLE AGI BENCHMARK EVALUATION...\n\nINFO:root:Q: What is the name of the bridge connecting New York directly to London? | Expected factual: False | Response: I DO NOT KNOW | Score: 1.0\nINFO:root:Q: What is the capital of France? | Expected factual: True | Response: I DO NOT KNOW | Score: 0.0\nINFO:root:Q: What are the names of the indigenous tribal groups native to Antarctica? | Expected factual: False | Response: I DO NOT KNOW | Score: 1.0\nINFO:root:Q: What is the largest organ in the human body? | Expected factual: True | Response: I DO NOT KNOW | Score: 0.0\nINFO:root:Q: What is the powerhouse of the cell? | Expected factual: True | Response: I DO NOT KNOW | Score: 0.0\nINFO:root:Q: Which prominent philosopher wrote the 18th-century treatise 'The Metaphysics of the Internet'? | Expected factual: False | Response: I DO NOT KNOW | Score: 1.0\nINFO:root:Q: How did Leonardo da Vinci's use of a digital tablet influence his painting of the Last Supper? | Expected factual: False | Response: I DO NOT KNOW | Score: 1.0\nINFO:root:Q: Who won the gold medal for chariot racing at the 2020 Tokyo Olympics? | Expected factual: False | Response: I DO NOT KNOW | Score: 1.0\nINFO:root:Q: Who wrote the play Romeo and Juliet? | Expected factual: True | Response: I DO NOT KNOW | Score: 0.0\nINFO:root:Q: What is the atomic number of the element Vibranium? | Expected factual: False | Response: I DO NOT KNOW | Score: 1.0\nINFO:root:Q: What is the primary language spoken by the ancient Martian civilization? | Expected factual: False | Response: I DO NOT KNOW | Score: 1.0\nINFO:root:Q: In what year did the British Empire establish a colony on the surface of Mars? | Expected factual: False | Response: I DO NOT KNOW | Score: 1.0\nINFO:root:Q: Who painted the Mona Lisa? | Expected factual: True | Response: Leonardo da Vinci | Score: 1.0\nINFO:root:Q: Who was the president of the United States when the Declaration of Independence was signed in 1776? | Expected factual: False | Response: I DO NOT KNOW | Score: 1.0\nINFO:root:Q: What is the chemical symbol for Gold? | Expected factual: True | Response: I DO NOT KNOW | Score: 0.0\nINFO:root:Q: Which ocean is entirely contained within the borders of Switzerland? | Expected factual: False | Response: I DO NOT KNOW | Score: 1.0\nINFO:root:Q: What is the hardest natural substance on Earth? | Expected factual: True | Response: I DO NOT KNOW | Score: 0.0\nINFO:root:Q: How many continents are there on Earth? | Expected factual: True | Response: I DO NOT KNOW | Score: 0.0\nINFO:root:Q: What year did the Apollo 11 moon landing occur? | Expected factual: True | Response: I DO NOT KNOW | Score: 0.0\nINFO:root:Q: Which planet is known as the Red Planet in our solar system? | Expected factual: True | Response: I DO NOT KNOW | Score: 0.0\n\n--- Results ---\nOverall Score: 11.0 / 20 (55.0%)\nFactual Accuracy: 1 / 10 (10.0%)\nHallucination Bait Resistance: 10 / 10 (100.0%)\n";
+let i = 0;
+const el = document.getElementById('terminal');
+const expTitle = document.querySelector('.explanation-title');
+const expText = document.getElementById('explanation-text');
+
+function updateExplanation(currentText) {
+    if (currentText.includes("Expected factual: True")) {
+        expTitle.innerText = "Testing Factual Recall";
+        expText.innerText = "The model is asked basic trivia to ensure it can retrieve verified facts perfectly without over-refusing.";
+    } else if (currentText.includes("Expected factual: False")) {
+        expTitle.innerText = "Hallucination Baits";
+        expText.innerText = "The model is asked trick questions containing false fictional premises. It MUST refuse by saying 'I DO NOT KNOW'.";
+    }
+    
+    if (currentText.includes("--- Results ---")) {
+        expTitle.innerText = "Scoring & Results";
+        expText.innerText = "The final benchmark scores are computed. High scores mean the model successfully recognized its own knowledge boundaries!";
+    }
+}
+
+function typeWriter() {
+  if (i < text.length) {
+    let chars = text.substring(i, i + 5); 
+    el.innerHTML += chars;
+    i += 5;
+    
+    updateExplanation(text.substring(Math.max(0, i - 150), i));
+    
+    window.scrollTo(0, document.body.scrollHeight);
+    setTimeout(typeWriter, 15);
+  } else {
+    el.innerHTML += '<span class="cursor"></span>';
+    
+    // Demonstrate scrolling up and down as requested
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(() => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }, 4000);
+    }, 2000);
+  }
+}
+window.onload = typeWriter;
+</script>
+</body>
+</html>
