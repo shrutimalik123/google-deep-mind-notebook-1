@@ -10,7 +10,7 @@ The project focuses on the **Metacognition** track, specifically isolating a mod
 
 ## Project Structure
 - `kaggle-agi-benchmark/`
-  - `metacognition_task.py`: The core evaluation script with a local test harness.
+  - `metacognition_task.py`: The core evaluation script utilizing the [kaggle-benchmarks SDK](https://github.com/Kaggle/kaggle-benchmarks).
   - `metacognition_dataset.jsonl`: A curated dataset of 20 factual and "hallucination bait" questions.
   - `generate_dataset.py`: Utility script used to generate the evaluation data.
   - `kaggle_thumbnail.png`: Custom-designed thumbnail for the Kaggle writeup.
