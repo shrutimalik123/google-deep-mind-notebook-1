@@ -16,6 +16,7 @@ The project focuses on the **Metacognition** track, specifically isolating a mod
   - `kaggle_thumbnail.png`: Custom-designed thumbnail for the Kaggle writeup.
   - `eval_video.mp4`: Recorded demonstration of the benchmark execution.
   - `detailed_eval_video.mp4`: An enhanced recording featuring on-screen explanations and scrolling.
+  - `notebooks/metacognition_evaluation.ipynb`: Interactive Jupyter notebook for local testing and visualization.
 
 ## How to Run the Evaluation
 To see the benchmark in action locally:
